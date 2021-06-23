@@ -1,0 +1,69 @@
+﻿@page
+@model ResumeMaker.Pages.Resumes.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ResumeInfo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ResumeInfo.FirstName" class="control-label"></label>
+                <input asp-for="ResumeInfo.FirstName" class="form-control" />
+                <span asp-validation-for="ResumeInfo.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResumeInfo.LastName" class="control-label"></label>
+                <input asp-for="ResumeInfo.LastName" class="form-control" />
+                <span asp-validation-for="ResumeInfo.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResumeInfo.Profession" class="control-label"></label>
+                <input asp-for="ResumeInfo.Profession" class="form-control" />
+                <span asp-validation-for="ResumeInfo.Profession" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResumeInfo.AboutMe" class="control-label"></label>
+                <input asp-for="ResumeInfo.AboutMe" class="form-control" />
+                <span asp-validation-for="ResumeInfo.AboutMe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResumeInfo.Image" class="control-label"></label>
+                <input asp-for="ResumeInfo.Image" class="form-control" />
+                <span asp-validation-for="ResumeInfo.Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResumeInfo.Email" class="control-label"></label>
+                <input asp-for="ResumeInfo.Email" class="form-control" />
+                <span asp-validation-for="ResumeInfo.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResumeInfo.PhoneNumber" class="control-label"></label>
+                <input asp-for="ResumeInfo.PhoneNumber" class="form-control" />
+                <span asp-validation-for="ResumeInfo.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResumeInfo.Address" class="control-label"></label>
+                <input asp-for="ResumeInfo.Address" class="form-control" />
+                <span asp-validation-for="ResumeInfo.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,88 @@
+﻿@page
+@model PrivacyModel
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<style>
+    @@media only screen and (min-width: 769px){
+        #main_div {
+            position: absolute;
+            top: 10%;
+        }
+    }
+</style>
+
+<div class="d-flex flex-lg-row flex-column row justify-content-center align-items-center col-12" id="main_div">
+
+    <div id="image" class="col-lg-5 col-10 d-flex flex-column align-items-center justify-content-center mb-4">
+        <input type="button" class="btn btn-info form-control-sm w-100 mb-1 order-0" onclick="switchSlides()" value="Preview Next"/>
+        <img src="/images/transparent.png" id="image_slide" class="col-9 col-lg-10" />
+    </div>
+
+    <div class="d-flex flex-row justify-content-center align-items-center col-lg-6 col-10 position-sticky">
+
+        <div class="container d-flex flex-column justify-content-center align-content-center main-card">
+            <div class="text-center row">
+
+                <div class="card w-30 bg-dark border-dark" style="opacity: 0.9;">
+                    <div class="card-header bg-transparent">
+                        <h1 class="h2 text-white">Resume Maker</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title float-left text-info">About The Website</div>
+                        <br />
+                        <p class="card-text float-left text-left text-white">
+                            Resume Maker is a web application that is designed to help you create and customize your own Portfolio.<br />
+                            How?<br />
+                            You fill in a form with your Basic Info - Skills - Experiences - Profile Image and it will automatically generates a Resume,
+                            you can choose a font that suits you well from a variety of choices and finally you print your resume and save it as a PDF.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <form action="post" class="w-100">
+                    <input type="submit" class="btn btn-info w-100 mt-2" value="Create Resume" asp-page="/ResumeForm" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    let counter = 0;
+    function switchSlides() {
+        document.getElementById("image_slide").remove();
+        var img = document.createElement("img");
+        img.classList.add("col-9", "col-lg-10", "order-1");
+        img.setAttribute("id", "image_slide");
+        img.setAttribute("src", "/images/" + (counter % 4) + ".png");
+        document.getElementById("image").appendChild(img);
+        document.getElementById("image_slide").style.animationName = "slide";
+        counter++;
+    }
+</script>
+
+<style>
+
+    #image_slide {
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: initial;
+    }
+
+    @@keyframes slide{
+        0%{
+            opacity:0.2;
+            transform: translateX(-50%);
+        }
+
+        100%{
+            opacity: 1;
+            transform: translateX(0%);
+        }
+    }
+</style>
+

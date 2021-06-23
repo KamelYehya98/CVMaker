@@ -1,0 +1,65 @@
+﻿@page "{handler?}"
+@model ResumeMaker.Pages.IndexModel
+@{
+}
+<style>
+    @@media only screen and (min-width: 0px) and (max-width: 767px) {
+        h1 {
+            font-size: 1.8em;
+        }
+    }
+
+    @@media only screen and (min-width: 768px) {
+        h1 {
+            font-size: 2.4em;
+        }
+    }
+</style>
+
+<link rel="stylesheet" href="~/css/SignIn.css" />
+<div class=" col-12 d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-center flex-column col-lg-7 col-md-8 col-sm-12" id="main_container">
+        <div class="d-flex justify-content-center flex-column">
+            <div class="d-flex justify-content-center mb-3">
+                <div style="position: relative;" class="text-center">
+                    <img src="" id="image_icon">
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <div class="card login-form bg-dark col-10 col-md-8 col-lg-7 col-xl-5" id="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-start text-success mb-2">SIGN IN</h1>
+                        <div class="card-text">
+                            <div id="errors_div" class="text-center bg-danger text-light ">
+                                @Model.ErrorMessage
+                            </div>
+                            <form method="POST" asp-page="/Index">
+
+                                <div class="form-group mb-2">
+                                    <label for="username" class="text-light">User Name</label>
+                                    <input type="text" class="form-control form-control-sm" name="username" placeholder="Username"
+                                           asp-for="user.UserName">
+                                </div>
+
+                                <div class="form-group mb-5">
+                                    <label for="password1" class="text-light">Enter Password</label>
+                                    <input type="password" class="form-control form-control-sm" name="password"
+                                           placeholder="Password" asp-for="user.Password">
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-block mb-2" name="submit_signin_btn">Sign In</button>
+
+                                <div class="signup mb-2">
+                                    <span class="text-light">Don't have an account?</span><a class="text-success" asp-page="/SignUp"> Sign Up</a>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

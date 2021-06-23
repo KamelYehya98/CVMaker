@@ -1,0 +1,41 @@
+﻿@media only screen and (min-width: 0px) and (max-width: 575px) {
+    .label-responsive{
+        font-size: 14px;
+    }
+     .header-texts{
+         font-size: 18px;
+     }
+    .font-responsive {
+        font-size: 12px;
+    }
+}
+@media only screen and (min-width: 576px) {
+    .font-responsive {
+        font-size: 14px;
+    }
+}
+
+.header-texts {
+    color: #17a2b8 !important;
+    /*#5cb85c;*/
+}
+
+/*body {
+    background: url('/images/bg.png');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+}*/
+
+.gradient-custom {
+    background: -webkit-linear-gradient(to right, rgba(0, 0, 0, 1), rgba(41, 41, 41, 0.5));
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(41, 41, 41, 0.5))
+}
+
+.label-responsive {
+    font-size: 2em;
+}
+
+.btn-custom {
+    background-color: #1ebba3;
+}

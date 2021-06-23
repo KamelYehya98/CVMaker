@@ -1,0 +1,25 @@
+﻿@page "{id:int}"
+@model ResumeMaker.Pages.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="bg-dark card d-flex flex-column justify-content-center align-items-center mt-5" style="opacity: 0.9 !important;">
+    <span class="text-danger font-weight-bold" style="font-size: large;">This action is irreversible</span>
+    <span class="text-light" style="font-size: x-large;">Are you sure you want to delete</span>
+    <span class="text-light" style="font-size: x-large;">@Model.Info.FirstName @Model.Info.LastName 's resume?</span>
+    <form method="post" class="mt-4 mb-2">
+        <input type="hidden" asp-for="Info.ResumeInfoID" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <span class="text-light">|</span>
+        <a asp-page="/Welcome" style="text-decoration: none;" class="text-light">Back to List</a>
+    </form>
+
+    <footer class="border-top footer text-muted bg-dark disappear" style="opacity: 0.9; position: sticky !important;">
+        <div class="container text-light">
+            &copy; 2021 - ResumeMaker - <a asp-area="" asp-page="/Privacy" class="text-light">Privacy</a>
+        </div>
+    </footer>
+
+</div>

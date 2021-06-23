@@ -1,0 +1,19 @@
+﻿@page "{id:int}"
+@model ResumeMaker.Pages.DetailsModel
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h1>Profile</h1>
+
+<div>
+    <h4>ResumeInfo</h4>
+    <hr />
+    
+    
+</div>
+<div>
+    <a asp-page="/Edit" asp-route-id="@Model.ResumeInfo.ResumeInfoID">Edit</a> |
+    <a asp-page="/Welcome">Back to List</a>
+</div>
