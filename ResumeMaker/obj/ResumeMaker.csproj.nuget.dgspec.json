@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kamel\\source\\repos\\ResumeMaker\\ResumeMaker\\ResumeMaker.csproj": {}
+    "C:\\Users\\kamel\\Desktop\\github\\ResumeMaker\\ResumeMaker\\ResumeMaker.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kamel\\source\\repos\\ResumeMaker\\ResumeMaker\\ResumeMaker.csproj": {
+    "C:\\Users\\kamel\\Desktop\\github\\ResumeMaker\\ResumeMaker\\ResumeMaker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kamel\\source\\repos\\ResumeMaker\\ResumeMaker\\ResumeMaker.csproj",
+        "projectUniqueName": "C:\\Users\\kamel\\Desktop\\github\\ResumeMaker\\ResumeMaker\\ResumeMaker.csproj",
         "projectName": "ResumeMaker",
-        "projectPath": "C:\\Users\\kamel\\source\\repos\\ResumeMaker\\ResumeMaker\\ResumeMaker.csproj",
+        "projectPath": "C:\\Users\\kamel\\Desktop\\github\\ResumeMaker\\ResumeMaker\\ResumeMaker.csproj",
         "packagesPath": "C:\\Users\\kamel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kamel\\source\\repos\\ResumeMaker\\ResumeMaker\\obj\\",
+        "outputPath": "C:\\Users\\kamel\\Desktop\\github\\ResumeMaker\\ResumeMaker\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\kamel\\AppData\\Roaming\\NuGet\\NuGet.Config",
