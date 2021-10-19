@@ -54,7 +54,7 @@ namespace ResumeMaker.Pages
 
             _context.ResumeInfos.Remove(_context.ResumeInfos.Find(id));
             _context.SaveChanges();
-            return RedirectToPage("/Welcome");
+            return RedirectToPage("/myresumes");
         }
     }
 }

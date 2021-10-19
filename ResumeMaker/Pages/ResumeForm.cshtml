@@ -1,4 +1,4 @@
-﻿@page "{handler?}"
+﻿@page "{id?}"
 @model ResumeMaker.Pages.ResumeFormModel
 
 @addTagHelper AuthoringTagHelpers.TagHelpers.E*, AuthoringTagHelpers
@@ -9,13 +9,66 @@
 @using ResumeMaker.Models;
 
 <script type="text/javascript" src="~/js/ResumeForm.js"></script>
+<link rel="stylesheet" href="/css/Header.css" />
 
 <link rel="stylesheet" href="/css/ResumeForm.css">
 
-<div class="container">
+
+<header class="d-flex justify-content-between col-12" style="font-family: 'Courier New' !important;">
+
+    <label class="ml-2 align-self-center">
+        <a class="header-text-icon link logo text-light" href="/">DESIGNER</a>
+    </label>
+
+    <img src="/images/nav-icon.png" class="img-thumbnail menu-button align-self-center" onclick="showNav()" />
+
+    <nav>
+        <img src="/images/x-icon.png" class="img-thumbnail exit-button mt-2" style="width:12%; height:5%;" onclick="hideNav();" />
+        <ul class="primary-nav" id="target-nav">
+        </ul>
+
+        @{
+            if (ResumeMaker.Helpers.SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == -1
+            || ResumeMaker.Helpers.SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == 0)
+            {
+                <ul class="secondary-nav mt-4">
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="Credentials" class="link">Log in</a>
+                    </li>
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="Credentials" class="link sign-up">Sign Up</a>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <script type="text/javascript">
+                    let nav = document.getElementById("target-nav");
+                    let a = document.createElement("a");
+                    let li = document.createElement("li");
+                    a.setAttribute("href", "/myresumes");
+                    a.classList.add("link");
+                    a.innerHTML = "My Resumes";
+                    li.appendChild(a);
+                    nav.appendChild(li);
+                </script>
+
+                <ul class="secondary-nav">
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="LogOut" class="link">Log Out</a>
+                    </li>
+                </ul>
+            }
+        }
+    </nav>
+</header>
+
+
+
+<div class="container mt-5 col-11" style="font-family: 'Courier New'">
     <div class="d-flex justify-content-center">
-        <div class="card login-form w-100 bg-dark" id="card" style="opacity: 0.9;">
-            <div class="card-header text-light label-responsive">My Resume</div>
+        <div class="card login-form w-100" style="background-color: #424242; opacity: 0.9;" id="card">
+            <div class="card-header label-responsive bg-custom">My Resume</div>
             <div class="card-body ">
                 <div class="card-text">
 
@@ -25,7 +78,7 @@
 
                         <input hidden asp-for="Info.Image" />
                         <div class="form-group">
-                            <label asp-for="Photo" class="col-form-label text-light"></label>
+                            <label asp-for="Photo" class="col-form-label custom-font"></label>
                             <div class="custom-file">
                                 <label class="custom-file-label font-responsive">Change photo</label>
                                 <input asp-for="Photo" class="custom-file-input form-control-sm" />
@@ -35,37 +88,38 @@
                         <div class="form-group mb-2 mt-5">
                             <h1 class="card-title text-start mb-2 header-texts">Credentials</h1>
 
-                            <label for="FirstName" class="text-light float-left">First Name</label>
+                            <label for="FirstName" class="custom-font float-left">First Name</label>
                             <span asp-validation-for="Info.FirstName" class="text-danger float-right"></span>
-                            <input type="text" class="form-control form-control-sm" asp-for="Info.FirstName" placeholder="Jhonny" />
+                            <input type="text" class="form-control form-control-sm" asp-for="Info.FirstName" placeholder="First Name" />
 
 
-                            <label for="LastName" class="text-light float-left">Last Name</label>
+                            <label for="LastName" class="custom-font float-left">Last Name</label>
                             <span asp-validation-for="Info.LastName" class="text-danger float-right"></span>
-                            <input type="text" class="form-control form-control-sm" asp-for="Info.LastName" placeholder="Sins" />
+                            <input type="text" class="form-control form-control-sm" asp-for="Info.LastName" placeholder="Last Name" />
 
 
-                            <label for="Profession" class="text-light float-left">Profession</label>
+                            <label for="Profession" class="custom-font float-left">Profession</label>
                             <span asp-validation-for="Info.Profession" class="text-danger float-right"></span>
-                            <input type="text" class="form-control form-control-sm" asp-for="Info.Profession" placeholder="Doctor, Enginner, FireFighter, Teacher, Plumber......" />
+                            <input type="text" class="form-control form-control-sm" asp-for="Info.Profession" placeholder="Computer Scientist" />
                         </div>
 
                         <div class="form-group mb-2 mt-5">
                             <h1 class="card-title text-start mb-2 header-texts">Personal Info</h1>
 
-                            <label for="Email" class="text-light">Email Address</label>
+                            <label for="Email" class="custom-font">Email Address</label>
                             <span asp-validation-for="Info.Email" class="text-danger float-right"></span>
                             <input type="email" class="form-control form-control-sm" asp-for="Info.Email" placeholder="example@gmail.com">
 
-                            <label for="PhoneNumber" class="text-light">Phone Number</label>
+                            <label for="PhoneNumber" class="custom-font">Phone Number</label>
                             <span asp-validation-for="Info.PhoneNumber" class="text-danger float-right"></span>
-                            <input type="text" class="form-control form-control-sm" asp-for="Info.PhoneNumber" placeholder="+961 78832927">
+                            <input type="text" class="form-control form-control-sm" asp-for="Info.PhoneNumber" placeholder="Phone Number">
 
-                            <label for="Address" class="text-light">Address</label>
+                            <label for="Address" class="custom-font">Address</label>
                             <span asp-validation-for="Info.Address" class="text-danger float-right"></span>
-                            <input type="text" class="form-control form-control-sm" asp-for="Info.Address" placeholder="Beirut-Lebanon">
+                            <input type="text" class="form-control form-control-sm" asp-for="Info.Address" placeholder="Address">
 
                         </div>
+
 
                         <div class="form-group mb-2 mt-5">
                             <h1 class="card-title text-start mb-2 header-texts">Languages</h1>
@@ -74,29 +128,29 @@
                                 <tr>
                                     <td class="d-flex flex-md-row flex-column justify-content-around align-items-center mb-4">
                                         <div class="m-2">
-                                            <span class="text-light">Language: </span>
+                                            <span class="custom-font">Language: </span>
                                             <span class="float-right"></span>
                                             <input class="form-control-sm" type="text" name="LanguageName" />
                                         </div>
                                         <div class="m-2">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="LanguageValue0" id="inlineRadio1" value="1">
-                                                <label class="form-check-label text-light" for="inlineRadio1">Beginner</label>
+                                                <label class="form-check-label custom-font" for="inlineRadio1">Beginner</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="LanguageValue0" id="inlineRadio2" value="2" checked>
-                                                <label class="form-check-label text-light" for="inlineRadio2">Intermediate</label>
+                                                <label class="form-check-label custom-font" for="inlineRadio2">Intermediate</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="LanguageValue0" id="inlineRadio3" value="3">
-                                                <label class="form-check-label text-light" for="inlineRadio3">Advanced</label>
+                                                <label class="form-check-label custom-font" for="inlineRadio3">Advanced</label>
                                             </div>
                                         </div>
                                         <button class="btn btn-danger d-block" href="#" disabled>X</button>
                                     </td>
                                 </tr>
                             </table>
-                            <input type="button" class="btn btn-info w-20" onclick="addLanguage('', 2);" value="Add Language">
+                            <input type="button" class="btn btn-custom w-20" onclick="addLanguage('', 2);" value="Add Language">
 
                         </div>
 
@@ -106,36 +160,73 @@
                                 <tr>
                                     <td class="d-flex flex-md-row flex-column justify-content-around align-items-center mb-4">
                                         <div class="m-2">
-                                            <span class="text-light">Skill: </span>
+                                            <span class="custom-font">Skill: </span>
                                             <span class="float-right" asp-validation-for="Info.Skills"></span>
                                             <input class="form-control-sm" type="text" name="SkillName" />
                                         </div>
                                         <div class="m-2">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="SkillValue0" id="inlineRadio1" value="1">
-                                                <label class="form-check-label text-light" for="inlineRadio1">Beginner</label>
+                                                <label class="form-check-label custom-font" for="inlineRadio1">Beginner</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input text-light" type="radio" name="SkillValue0" id="inlineRadio2" value="2" checked>
-                                                <label class="form-check-label text-light" for="inlineRadio2">Intermediate</label>
+                                                <input class="form-check-input custom-font" type="radio" name="SkillValue0" id="inlineRadio2" value="2" checked>
+                                                <label class="form-check-label custom-font" for="inlineRadio2">Intermediate</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input text-light" type="radio" name="SkillValue0" id="inlineRadio3" value="3">
-                                                <label class="form-check-label text-light" for="inlineRadio3">Advanced</label>
+                                                <input class="form-check-input custom-font" type="radio" name="SkillValue0" id="inlineRadio3" value="3">
+                                                <label class="form-check-label custom-font" for="inlineRadio3">Advanced</label>
                                             </div>
                                         </div>
                                         <button class="btn btn-danger d-block" href="#" disabled>X</button>
                                     </td>
                                 </tr>
                             </table>
-                            <input type="button" class="btn btn-info mt-2 w-20" onclick="addSkills('', 2);" value="Add Skill">
+                            <input type="button" class="btn btn-custom mt-2 w-20" onclick="addSkills('', 2);" value="Add Skill">
+                        </div>
+
+
+                        <div class="form-group mb-2 mt-5">
+                            <h1 class="card-title text-start mb-2 header-texts">Socials</h1>
+                            <h6 class="text-start" style="color:var(--dark-purple);">The following fields aren't required, feel free to skip them if you don't have a social life</h6>
+
+                            <label for="GitHub" class="custom-font">Git Hub</label>
+                            <span asp-validation-for="Info.GitHub" class="text-danger float-right"></span>
+                            <input type="url" class="form-control form-control-sm" asp-for="Info.GitHub" placeholder="Your GitHub Profile Link (Not Required)">
+
+                            <label for="LinkedIn" class="custom-font">LinkedIn</label>
+                            <span asp-validation-for="Info.LinkedIn" class="text-danger float-right"></span>
+                            <input type="url" class="form-control form-control-sm" asp-for="Info.LinkedIn" placeholder="Your LinkedIn Profile Link (Not Required)">
+
+                            <label for="Facebook" class="custom-font">Facebook</label>
+                            <span asp-validation-for="Info.Facebook" class="text-danger float-right"></span>
+                            <input type="url" class="form-control form-control-sm" asp-for="Info.Facebook" placeholder="Your Facebook Profile Link (Not Required)">
+
+                            <label for="Twitter" class="custom-font">Twitter</label>
+                            <span asp-validation-for="Info.Twitter" class="text-danger float-right"></span>
+                            <input type="url" class="form-control form-control-sm" asp-for="Info.Twitter" placeholder="Your Twitter Profile Link (Not Required)">
+
+                            <label for="Instagram" class="custom-font">Instagram</label>
+                            <span asp-validation-for="Info.Instagram" class="text-danger float-right"></span>
+                            <input type="url" class="form-control form-control-sm" asp-for="Info.Instagram" placeholder="Your Instagram Profile Link (Not Required)">
+
+                        </div>
+
+                        <div class="form-group mb-2 mt-5">
+                            <h1 class="card-title text-start mb-2 header-texts">References</h1>
+                            <h6 class="text-start" style="color:var(--dark-purple);">The following field isn't required, feel free to skip it if you don't have a refferer</h6>
+
+                            <label for="Reference" class="custom-font">Refferer's Email</label>
+                            <span asp-validation-for="Info.Reference" class="text-danger float-right"></span>
+                            <input type="email" class="form-control form-control-sm" asp-for="Info.Reference" placeholder="example@gmail.com">
+
                         </div>
 
 
                         <div class="form-group mb-2 mt-5">
                             <h1 class="card-title text-start mb-2 header-texts">Profile</h1>
                             <div class="form-outline mb-4">
-                                <label class="form-label text-light" for="textAreaProfile">About me</label>
+                                <label class="form-label custom-font" for="textAreaProfile">About me</label>
                                 <span class="float-right text-danger" asp-validation-for="Info.AboutMe"></span>
                                 <textarea class="form-control" id="textAreaProfile" rows="8" asp-for="Info.AboutMe" placeholder="Tell us about yourself..."></textarea>
                             </div>
@@ -153,15 +244,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="button" onclick="addExperiences(``, ``);" class="btn btn-info offset-3 w-50" style="font-size: small;" value="Add Experience">
+                            <input type="button" onclick="addExperiences(``, ``);" class="btn btn-custom offset-3 w-50" style="font-size: small;" value="Add Experience">
                         </div>
 
                         <div class="form-group mb-2 mt-5">
-                            <input class="btn btn-success w-100" value="Generate Resume" type="submit">
+                            <input class="btn btn-custom w-100" value="Generate Resume" type="submit" id="submit_btn">
                         </div>
 
                         <div>
-                            <a asp-page="/Welcome">Back to List</a>
+                            <a asp-page="/Welcome" class="link bi bi-arrow-return-left">
+                                <svg class="mt-5 bi bi-arrow-return-left" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z" />
+                                </svg>
+                                <p>Abort Mission</p>
+                            </a>
                         </div>
                     </form>
 
@@ -184,8 +280,8 @@
     </div>
 
     <footer class="border-top footer text-muted bg-dark disappear" style="opacity: 0.9; position: sticky !important;">
-        <div class="container text-light">
-            &copy; 2021 - ResumeMaker - <a asp-area="" asp-page="/Privacy" class="text-light">Privacy</a>
+        <div class="container custom-font">
+            &copy; 2021 - ResumeMaker - <a asp-area="" asp-page="/Privacy" class="custom-font">Privacy</a>
         </div>
     </footer>
 </div>
@@ -194,6 +290,13 @@
 
 @if (Model.Info != null)
 {
+    @if (Model.id != 0)
+    {
+        <script>
+            document.getElementById("submit_btn").setAttribute("value", "Edit Resume");+
+        </script>
+    }
+
     @if (Model.Info.GetLanguages().Count > 0)
     {
         <script>

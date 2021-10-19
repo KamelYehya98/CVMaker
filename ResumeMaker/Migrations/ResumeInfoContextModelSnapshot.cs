@@ -86,15 +86,27 @@ namespace ResumeMaker.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Facebook")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GitHub")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Instagram")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LinkedIn")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -103,6 +115,12 @@ namespace ResumeMaker.Migrations
 
                     b.Property<string>("Profession")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reference")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Twitter")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserID")
@@ -137,6 +155,21 @@ namespace ResumeMaker.Migrations
                     b.HasIndex("ResumeInfoID");
 
                     b.ToTable("Skills");
+                });
+
+            modelBuilder.Entity("ResumeMaker.Models.UnRegisteredResume", b =>
+                {
+                    b.Property<int>("UnregisteredID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ResumeInfoID")
+                        .HasColumnType("int");
+
+                    b.HasKey("UnregisteredID");
+
+                    b.ToTable("UnRegisteredResumes");
                 });
 
             modelBuilder.Entity("ResumeMaker.Models.User", b =>

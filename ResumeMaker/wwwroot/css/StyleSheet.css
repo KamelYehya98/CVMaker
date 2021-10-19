@@ -1,0 +1,96 @@
+﻿:root {
+    --lighter-green: #46f1ad;
+    --light-green: #0fc473;
+    --dark-green: #198a68;
+    --input-background-green: #0e8556;
+    --input-selected-green: #095537;
+    --text-gray: #203141;
+    --background-gray: #2c2f38;
+    --light-purple: #8400FF;
+    --dark-purple: #CA8AFF;
+    --mid-purple: #a83ffe;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 575px) {
+    .label-responsive {
+        font-size: 14px;
+    }
+
+    .header-texts {
+        font-size: 18px;
+    }
+
+    .font-responsive {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .font-responsive {
+        font-size: 14px;
+    }
+}
+
+.header-texts {
+    color: var(--dark-purple) !important;
+    /*#5cb85c;*/
+}
+
+/*body {
+    background: url('/images/bg.png');
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+}*/
+
+main{
+    height: 100vh;
+}
+
+.gradient-custom {
+    background: -webkit-linear-gradient(to right, rgba(0, 0, 0, 1), rgba(41, 41, 41, 0.5));
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.9), rgba(41, 41, 41, 0.5))
+}
+
+.label-responsive {
+    font-size: 2em;
+}
+
+.btn-custom {
+    background: linear-gradient(to right, var(--mid-purple), var(--light-purple));
+    color: white;
+}
+
+    .btn-custom:hover {
+        color: white;
+        background: var(--dark-purple);
+    }
+
+.custom-font {
+    color: #d0c9c9 !important;
+}
+
+.resumes-container{
+    border-radius: 10px;
+}
+
+.main-container{
+    position: relative;
+    top: 7% !important;
+    margin-bottom: 8% !important;
+}
+
+.bg-custom {
+    background: linear-gradient(to right, var(--dark-purple), var(--light-purple)) !important;
+    color: white;
+    border-radius: 10px;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+svg{
+    width:5vw;
+    height: 5vh;
+}

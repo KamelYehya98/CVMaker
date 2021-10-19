@@ -1,4 +1,31 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function showNav() {
+    console.log("LAKKKKKKKKKKKKKKKKKKKKKKK EHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+    document.getElementsByTagName("nav")[0].setAttribute("class", "nav-shown");
+    document.querySelector('nav').addEventListener('click', hideNav);
+}
 
-// Write your JavaScript code.
+function hideNav() {
+    const nav = document.querySelector("nav");
+    nav.classList.remove('nav-shown');
+    document.querySelector('nav').removeEventListener('click', hideNav);
+}
+
+function hideShowOptions() {
+    if (window.innerWidth > 1000) {
+        var e = document.querySelector(".account-options");
+        if (e.style.display) {
+            if (e.style.display != 'none') {
+                e.style.display = 'none';
+            }
+            else {
+                e.style.display = 'block';
+                showAccountOptions();
+            }
+            //e.style.display = ((e.style.display!='none') ? 'none' : 'block');
+        }
+        else {
+            e.style.display = 'block';
+        }
+    }
+}
+

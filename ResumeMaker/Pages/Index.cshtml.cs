@@ -1,64 +1,52 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using ResumeMaker.Data;
+using ResumeMaker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using ResumeMaker.Models;
 using ResumeMaker.Helpers;
-using ResumeMaker.Data;
 using Microsoft.AspNetCore.Http;
 
 namespace ResumeMaker.Pages
 {
     public class IndexModel : PageModel
     {
-        [BindProperty]
-        public User user { get; set; }
-        private ResumeInfoContext context;
-        public string ErrorMessage { get; set; }
+        private readonly ResumeInfoContext _context;
+        private readonly MvcOptions _mvcOptions;
+        public List<ResumeInfo> ResumeInfos { get; set; }
+        public int UserID { get; set; }
 
-        public IndexModel(ResumeInfoContext _context)
+        public IndexModel(ResumeInfoContext context, IOptions<MvcOptions> mvcOptions)
         {
-            context = _context;
-        }
-        public void OnGet()
-        {
-            
+            _context = context;
+            _mvcOptions = mvcOptions.Value;
         }
 
-        public void OnGetLogOut()
+        public IActionResult OnPostEdit()
         {
-            HttpContext.Session.Remove("ID");
+            return RedirectToPage("/Edit");
         }
-
+        public IActionResult OnGetAsync()
+        {
+            Console.WriteLine("SESSSSSSSSSION IDDD IS:::::::::::::::::" + SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID"));
+            if (SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == -1 
+                    || SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == 0)
+                UserID = -1;
+            else
+            {
+                ResumeInfos = _context.ResumeInfos.Where(e => e.UserID == SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID")).ToList();
+                UserID = SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID");
+            }
+            return Page();
+        }
         public IActionResult OnPost()
         {
-            var account = CheckCredentials();
-            if (account == null)
-                return Page();
-
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "ID", (int)account.UserID);
-            return RedirectToPage("/Welcome");
+            return RedirectToPage("/ResumeForm");
         }
-
-        public User CheckCredentials()
-        {
-            var account = context.Users.SingleOrDefault(e => e.UserName.Equals(user.UserName));
-            if (account == null)
-            {
-                ErrorMessage = "Wrong Username";
-                return null;
-            }   
-            if (!account.Password.Equals(user.Password))
-            {
-                ErrorMessage = "Wrong Password";
-                return null;
-            }
-           
-            return account;
-        }
-    }
-
-
+     }
 }

@@ -1,0 +1,326 @@
+:root {
+    --lighter-green: #46f1ad;
+    --light-green: #0fc473;
+    --dark-green: #198a68;
+    --input-background-green: #0e8556;
+    --input-selected-green: #095537;
+    --text-gray: #203141;
+    --background-gray: #2c2f38;
+    --light-purple: #8400FF;
+    --dark-purple: #CA8AFF;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+} 
+
+.header-text-icon{
+    box-shadow: 0px 2px var(--dark-purple); 
+}
+.header-text-icon:hover {
+    box-shadow: 0px 2px var(--dark-purple);
+}
+
+.bg-custom {
+    background: linear-gradient(to right, var(--dark-purple), var(--light-purple)) !important;
+    color: white;
+}
+
+header {
+    padding: 1em 2em 0.35em;
+    box-shadow: 0px 0px 1.5em var(--light-purple);
+    background: linear-gradient(to right, #8400FF, #CA8AFF);
+    position: absolute;
+    z-index: 999;
+}
+
+header .logo{
+    font-family: 'Courier New';
+    font-size: 2rem;
+    color: var(--light-green);
+    z-index: 2;
+}
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-list {
+    display: flex;
+    list-style-type: none;
+    padding: 0.5em 0em;
+    background: linear-gradient(to right, #8400FF, #CA8AFF);
+}
+
+.primary-nav{
+    position: absolute;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    margin-top: 0.5em;
+}
+
+.secondary-nav{
+    margin-top: 1em;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 2;
+}
+
+.account-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-top: 0.1em;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.account-nav p{
+    color: var(--light-green);
+    padding-right: 0.75rem;
+}
+
+.account-nav img{
+    height: 2.5rem;
+}
+
+.account-options{
+    display: none;
+    position: fixed;
+    top: 4.25em;
+    right: 3em;
+    background: #1c1b22;
+    padding: 1.5em 1em 0.5em;
+    transition: 250ms;
+    z-index: 2;
+}
+
+.account-options::before {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 0;
+	bottom: 100%;
+	right: 1.5em; 
+	border: .75rem solid transparent;
+	border-top: none;
+	border-bottom-color: #1c1b22;
+	filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, .1));
+}
+
+.account-options button{
+    background: none;
+    border: none;
+    margin-bottom: 1em;
+}
+
+li{
+    text-decoration: none;
+    list-style: none;
+    margin: 0em 0.8em;
+}
+
+.link{
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 0.03125rem;
+    cursor: pointer;
+}
+
+.link:hover, .link:active{
+    transition: 250ms;
+    color: var(--light-purple);
+}
+
+.sign-up{
+    background: white;
+    color: var(--dark-purple);
+    padding: 0.4em 1em;
+    border-radius: 25px;
+}
+
+.sign-up img{
+    height: 1rem;
+    padding-bottom: 0.1rem;
+}
+
+.sign-up:hover, .sign-up:active{
+    transition: 250ms;
+    box-shadow: 0px 4px 8px var(--light-purple);
+    color: var(--light-purple);
+}
+
+.current{
+    color: var(--light-green);
+}
+
+.menu-button{
+    display: none;
+}
+
+.exit-button{
+    display: none;
+}
+
+footer{
+    margin-top: 4.5rem;
+    padding-left: 1rem;
+}
+
+footer p{
+    color: white;
+}
+
+footer p::before{
+    content: "";
+    margin-bottom: 1rem;
+    margin-left: -1rem;
+    background-image: linear-gradient(to right, var(--light-green), rgba(0, 0, 0, 0));
+    height: 2px;
+    display: block;
+}
+
+@media only screen and (max-width: 767px){
+    
+    nav{
+        display: block;
+        position: fixed;
+        right: -60vw;
+        background: #1c1b22;
+        border-left: 2px solid var(--light-green);
+        margin: 0;
+        padding: 1em;
+        height: 100vh;
+        width: 30vw;
+        top: 0;
+        text-align: right;
+        transition: 250ms;
+        z-index: 999;
+    }
+    
+    .nav-shown{
+        position: fixed;
+        right: 0;
+    }
+    
+    .primary-nav, .secondary-nav{
+        display: block;
+    }
+    
+    .primary-nav{
+        display: unset;
+        position: unset;
+    }
+    
+    li{
+        margin: 1em;
+    }
+
+    li img{
+        display: none;
+    }
+
+    .primary-nav .link, .secondary-nav .link{
+        font-size: 1.5rem;
+        font-weight: normal;
+        /* border-bottom: 2px solid var(--light-green); */
+    }
+
+    .sign-up{
+        background: unset;
+        padding: 0;
+        border-radius: unset;
+    }
+
+    .sign-up:hover{
+        color: var(--lighter-green);
+        box-shadow: unset;
+    }
+
+    .menu-button{
+        width: 1.9em;
+        display: unset;
+        cursor: pointer;
+    }
+
+    .exit-button{
+        display: unset;
+        position: static;
+        margin: 1em -0.5em 3em;
+        /* float: right; */
+        cursor: pointer;
+    }
+
+    .account-options{
+        display: block;
+    }
+
+    .account-nav{
+        display: none;
+    }
+
+    header li{
+        margin: 1em;
+    }
+
+    header li img{
+        display: none;
+    }
+
+    .account-name-img{
+        justify-content: end;
+        align-items: flex-end;
+        padding-top: 0.5em;
+        cursor: default;
+    }
+
+    .account-name-img img{
+        display: none;
+    }
+
+    .account-name-img .mobile-text{
+        display: unset;
+        font-weight: normal;
+    }
+
+    .account-options{
+        display: block !important;
+        position: unset;
+        top: unset;
+        right: unset;
+        background: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .account-options .link{
+        margin-top: 0;
+        padding: 0;
+        font-weight: normal;
+        font-size: 1.5rem;
+    }
+
+    .account-options::before{
+        display: none;
+    }
+
+
+}
+
+@media only screen and (max-width: 767px) {
+    nav{
+        width:60vw;
+    }
+}
+
+a{
+    text-decoration: none !important;
+}

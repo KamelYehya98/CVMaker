@@ -5,21 +5,69 @@
     ViewData["Title"] = "Delete";
 }
 
-<div class="bg-dark card d-flex flex-column justify-content-center align-items-center mt-5" style="opacity: 0.9 !important;">
-    <span class="text-danger font-weight-bold" style="font-size: large;">This action is irreversible</span>
-    <span class="text-light" style="font-size: x-large;">Are you sure you want to delete</span>
-    <span class="text-light" style="font-size: x-large;">@Model.Info.FirstName @Model.Info.LastName 's resume?</span>
-    <form method="post" class="mt-4 mb-2">
-        <input type="hidden" asp-for="Info.ResumeInfoID" />
-        <input type="submit" value="Delete" class="btn btn-danger" />
-        <span class="text-light">|</span>
-        <a asp-page="/Welcome" style="text-decoration: none;" class="text-light">Back to List</a>
-    </form>
+<link rel="stylesheet" href="~/css/Header.css" />
 
-    <footer class="border-top footer text-muted bg-dark disappear" style="opacity: 0.9; position: sticky !important;">
-        <div class="container text-light">
-            &copy; 2021 - ResumeMaker - <a asp-area="" asp-page="/Privacy" class="text-light">Privacy</a>
-        </div>
-    </footer>
+
+<header class="d-flex justify-content-between col-12" style="font-family: 'Courier New' !important;">
+
+    <label class="ml-2 align-self-center">
+        <a class="header-text-icon link logo text-light" href="/">DESIGNER</a>
+    </label>
+
+    <img src="/images/nav-icon.png" class="img-thumbnail menu-button align-self-center" onclick="showNav()" />
+
+    <nav>
+        <img src="/images/x-icon.png" class="img-thumbnail exit-button mt-2" style="width:12%; height:5%;" onclick="hideNav()" />
+        <ul class="primary-nav" id="target-nav">
+        </ul>
+
+        @{
+            if (ResumeMaker.Helpers.SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == -1
+            || ResumeMaker.Helpers.SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == 0)
+            {
+                <ul class="secondary-nav mt-4">
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="Credentials" class="link">Log in</a>
+                    </li>
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="Credentials" class="link sign-up">Sign Up</a>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <script type="text/javascript">
+                    let nav = document.getElementById("target-nav");
+                    let a = document.createElement("a");
+                    let li = document.createElement("li");
+                    a.setAttribute("href", "/myresumes");
+                    a.classList.add("link");
+                    a.innerHTML = "My Resumes";
+                    li.appendChild(a);
+                    nav.appendChild(li);
+                </script>
+
+                <ul class="secondary-nav">
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="LogOut" class="link">Log Out</a>
+                    </li>
+                </ul>
+            }
+        }
+    </nav>
+</header>
+
+
+
+<div class="bg-custom card mt-5 col-lg-6 col-10 offset-lg-3 offset-1 d-flex flex-column align-items-center justify-content-center"
+     style="position:fixed; top: 20%; height:30%; opacity: 0.9 !important; border-radius:10px; font-family:'Courier New'">
+    <span class="text-light font-weight-bold text-center" style="font-size: large;">This action is irreversible</span>
+    <span class="text-light text-center" style="font-size: x-large;">Are you sure you want to delete</span>
+    <span class="text-light" style="font-size: x-large;" id="namespan"></span>
+    <form method="post" class="mt-5">
+        <button class="btn btn-danger font-weight-bolder">Confirm</button>
+        <span class="text-light">|</span>
+        <a style="text-decoration: none;" class="btn btn-outline-light" href="/myresumes">Abort Mission</a>
+    </form>
 
 </div>

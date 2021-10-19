@@ -27,15 +27,21 @@ namespace ResumeMaker.Pages
         [BindProperty(SupportsGet = true)]
         public int id { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public int UserID { get; set; }
+
         public GenerateResumeModel(ResumeInfoContext context, IWebHostEnvironment _webhost)
         {
             _context = context;
             webHostEnvironment = _webhost;
         }
+        public IActionResult OnPost()
+        {
+            return RedirectToPage("./Auth", new { ResumeID = id });
+        }
         public IActionResult OnGet()
         {
-            if (SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == -1)
-                return RedirectToPage("/Index");
+            UserID = SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID");
 
             Info = _context.ResumeInfos.FirstOrDefault(m => m.ResumeInfoID == id);
 

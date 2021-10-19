@@ -14,11 +14,12 @@
         }
     }
 
-    @@media only screen and (min-width: 768px) and (max-width: 1439px){
+    @@media only screen and (min-width: 768px) and (max-width: 1439px) {
         label {
             font-size: 13px;
         }
     }
+
     @@media only screen and (min-width: 1044px) {
         label {
             font-size: 15px;
@@ -32,36 +33,90 @@
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="/css/GenerateResume.css" rel="stylesheet" />
-<script src="~/js/site.js" asp-append-version="true"></script>
 
-<div class="d-flex justify-content-center align-items-center flex-column col-xl-10 col-lg-10 col-12 offset-xl-1 offset-0 offset-lg-1"  >
-    <div class="d-flex flex-row justify-content-between align-items-center col-12 disappear row mb-5 bg-dark" style="border-radius: 10%; opacity:0.9;">
+<link rel="stylesheet" href="~/css/Header.css" />
+
+
+<header class="d-flex justify-content-between col-12 disappear" style="font-family: 'Courier New' !important;">
+
+    <label class="ml-2 align-self-center">
+        <a class="header-text-icon link logo text-light" href="/">DESIGNER</a>
+    </label>
+
+    <img src="/images/nav-icon.png" class="img-thumbnail menu-button align-self-center" onclick="showNav()" />
+
+    <nav>
+        <img src="/images/x-icon.png" class="img-thumbnail exit-button mt-2" style="width:12%; height:5%;" onclick="hideNav()" />
+        <ul class="primary-nav" id="target-nav">
+        </ul>
+
+        @{
+            if (ResumeMaker.Helpers.SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == -1
+            || ResumeMaker.Helpers.SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == 0)
+            {
+                <ul class="secondary-nav mt-4">
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="Credentials" class="link">Log in</a>
+                    </li>
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="Credentials" class="link sign-up">Sign Up</a>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <script type="text/javascript">
+                    let nav = document.getElementById("target-nav");
+                    let a = document.createElement("a");
+                    let li = document.createElement("li");
+                    a.setAttribute("href", "/myresumes");
+                    a.classList.add("link");
+                    a.innerHTML = "My Resumes";
+                    li.appendChild(a);
+                    nav.appendChild(li);
+                </script>
+
+                <ul class="secondary-nav">
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="LogOut" class="link">Log Out</a>
+                    </li>
+                </ul>
+            }
+        }
+    </nav>
+</header>
+
+
+
+<div class="d-flex justify-content-center align-items-center flex-column col-xl-10 col-lg-10 col-12 offset-xl-1 offset-0 offset-lg-1 mb-4">
+
+    <div class="d-flex flex-row justify-content-between align-items-center col-12 disappear row mb-5 bg-custom mt-5 editor" style="font-family:'Courier New';" id="styling_header">
 
         <div class="d-flex flex-lg-row flex-column align-items-baseline align-items-lg-center col-2 col-lg-3 mt-2 mb-2">
             <form method="get">
-                <input class="btn btn-success btn-sm mr-1 ml-1 mt-1" style="color:var(--bs-headers-color-custom);" type="button" onclick="download()" value="SAVE AS PDF">
-                <input class="btn btn-primary btn-sm mr-1 ml-1 mt-1" style="color:var(--bs-headers-color-custom);" type="submit" asp-page="/Edit" asp-route-id="@Model.Info.ResumeInfoID"  value="EDIT RESUME">
+                <input class="btn btn-outline-light btn-sm mr-1 ml-1 mt-1" type="button" onclick="download()" value="SAVE AS PDF">
+                <input class="btn btn-outline-light btn-sm mr-1 ml-1 mt-1" type="submit" asp-page="/ResumeForm" asp-route-id="@Model.Info.ResumeInfoID" value="EDIT RESUME">
             </form>
         </div>
 
         <div class="d-flex flex-lg-row flex-column align-items-baseline align-items-lg-center justify-content-end col-10 col-lg-9 mt-2 mb-2">
             <div class="d-flex flex-column justify-content-lg-center align-items-end mr-3 w-100">
-                <label for="selecth1FontFamily" class="text-light">Choose a font family </label>
+                <label for="selecth1FontFamily" class="text-light">Font</label>
                 <select id="selecth1FontFamily" name="selectFontFamily" onchange="updateh1family();"></select>
             </div>
             <div class="d-flex flex-column align-items-end w-100">
-                <label for="selecth1FontSize" class="text-light">Choose a font size: </label>
+                <label for="selecth1FontSize" class="text-light">Font Size</label>
                 <select id="selecth1FontSize" name="selectFontSize" onchange="updateFontSize();"></select>
             </div>
             <div class="d-flex flex-column align-items-end w-100">
-                <label for="selectStyle" class="text-light">Style: </label>
+                <label for="selectStyle" class="text-light">Style</label>
                 <select id="selectStyle" name="selectStyle" onchange="updateStyle();">
                     <option value="bg-dark">Dark</option>
                     <option value="bg-primary">Primary</option>
                 </select>
             </div>
             <div class="d-flex flex-column align-items-end w-100">
-                <label for="imageStyle" class="text-light">Image Portrait: </label>
+                <label for="imageStyle" class="text-light">Portrait</label>
                 <select id="imageStyle" name="imageStyle" onchange="updateImageStyle();">
                     <option value="square">Border</option>
                     <option value="circle">Round</option>
@@ -70,8 +125,8 @@
         </div>
     </div>
 
-    <div style="background-color: var(--bs-outline-color-custom);" class="col-xl-10 col-lg-12 col-12 p-1" id="div_to_print">
-        <div class="container col-12" style="background-color: var(--bs-bg-color-custom);" >
+    <div style="background-color: var(--bs-outline-color-custom);" class="col-xl-10 col-lg-12 col-12 p-1 layout-1" id="div_to_print">
+        <div class="container col-12" style="background-color: var(--bs-bg-color-custom);">
 
             <div class="row">
                 <div class="m-4">
@@ -91,64 +146,127 @@
                                 <br />
                             }
                             <span class="font-weight-bolder" style="color: var(--bs-headers-color-custom); font-size: x-large;">@Model.Info.FirstName </span>
-                            <span class="font-weight-light" style="color: var(--bs-headers-color-custom);font-size: x-large;" >@Model.Info.LastName</span>
+                            <span class="font-weight-light" style="color: var(--bs-headers-color-custom);font-size: x-large;">@Model.Info.LastName</span>
                             <br />
-                            <span class="font-italic font-weight-lighter" style="color: var(--bs-text-color-custom);; font-size:large;">@Model.Info.Profession</span>
-                        </div>
+                            <span class="font-italic font-weight-lighter" style="        color: var(--bs-outline-color-custom);
+        font-size: large;">@Model.Info.Profession</span>
+                    </div>
 
-                        <div id="contact" class="mb-5 col-12">
-                            <span class="font-weight-bold" style="color:var(--bs-headers-color-custom);">C O N T A C T</span>
-                            <br />
-                            <span style="color: var(--bs-text-color-custom);; font-size: small;" class="font-weight-light ">@Model.Info.Email</span><br />
-                            <span style="color: var(--bs-text-color-custom);; font-size: small;" class="font-weight-light ">@Model.Info.PhoneNumber</span><br />
-                            <span style="color: var(--bs-text-color-custom);; font-size: small;" class="font-weight-light ">@Model.Info.Address</span><br />
+                    <div id="contact" class="mb-5 col-12">
+                        <span class="font-weight-bold" style="color:var(--bs-headers-color-custom);">C O N T A C T</span>
+                        <br />
+                        <span style="        color: var(--bs-outline-color-custom);
+        font-size: small;" class="font-weight-light ">@Model.Info.Email</span><br />
+                    <span style="        color: var(--bs-outline-color-custom);
+        font-size: small;" class="font-weight-light ">@Model.Info.PhoneNumber</span><br />
+                    <span style="        color: var(--bs-outline-color-custom);
+        font-size: small;" class="font-weight-light ">@Model.Info.Address</span><br />
 
-                        </div>
+                    </div>
 
-                        <div id="skills" class="mb-5 col-12">
-                            <span class="font-weight-bold" style="color:var(--bs-headers-color-custom);">S K I L L S</span>
-                            <div class="row mt-1 d-flex flex-row">
 
-                                <div class="col-1 col-lg-1 mt-3" id="line_seperator"></div>
-                                <div class="col-10 col-lg-10 mt-2">
-                                    @foreach (Skill skill in Model.Info.GetSkills())
-                                    {
-                                        <div class="col-11 col-lg-10">
-                                            <div class="col-12 m-1">
-                                                <span style="color:var(--bs-headers-color-custom);">@skill.Name</span><br />
-                                                <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="background-color:var(--bs-outline-color-custom);width: @(skill.Proficiency * 33.3333)%" aria-valuenow="3" aria-valuemin="1" aria-valuemax="4"></div>
-                                                </div>
+
+                    <div id="skills" class="mb-5 col-12">
+                        <span class="font-weight-bold" style="color:var(--bs-headers-color-custom);">S K I L L S</span>
+                        <div class="row mt-1 d-flex flex-row">
+
+                            <div class="col-1 col-lg-1 mt-3" id="line_seperator"></div>
+                            <div class="col-10 col-lg-10 mt-2">
+                                @foreach (Skill skill in Model.Info.GetSkills())
+                                {
+                                    <div class="col-11 col-lg-10">
+                                        <div class="col-12 m-1">
+                                            <span style="color:var(--bs-headers-color-custom);">@skill.Name</span><br />
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="background-color:var(--bs-outline-color-custom);width: @(skill.Proficiency * 33.3333)%" aria-valuenow="3" aria-valuemin="1" aria-valuemax="4"></div>
                                             </div>
                                         </div>
-                                    }
-                                </div>
+                                    </div>
+                                }
                             </div>
                         </div>
+                    </div>
 
-                        <div id="languages" class="mb-5 col-12">
-                            <span class="font-weight-bold" style="color:var(--bs-headers-color-custom);">L A N G U A G E S</span>
-                            <div class="row mt-1 d-flex flex-row">
+                    <div id="languages" class="mb-5 col-12">
+                        <span class="font-weight-bold" style="color:var(--bs-headers-color-custom);">L A N G U A G E S</span>
+                        <div class="row mt-1 d-flex flex-row">
 
-                                <div class="col-1 col-lg-1 mt-3" id="line_seperator"></div>
+                            <div class="col-1 col-lg-1 mt-3" id="line_seperator"></div>
 
-                                <div class="col-10 col-lg-10 mt-2">
-                                    @foreach (Language lang in Model.Info.GetLanguages())
-                                    {
+                            <div class="col-10 col-lg-10 mt-2">
+                                @foreach (Language lang in Model.Info.GetLanguages())
+                                {
 
-                                        <div class="col-10">
-                                            <div class="col-12 m-1">
-                                                <span style="color:var(--bs-headers-color-custom);">@lang.Name</span><br />
-                                                <div class="progress">
-                                                    <div class="progress-bar" role="progressbar" style="background-color:var(--bs-outline-color-custom); width:@(lang.Proficiency * 33.3333)%;" aria-valuenow="3" aria-valuemin="1" aria-valuemax="4"></div>
-                                                </div>
+                                    <div class="col-10">
+                                        <div class="col-12 m-1">
+                                            <span style="color:var(--bs-headers-color-custom);">@lang.Name</span><br />
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="background-color:var(--bs-outline-color-custom); width:@(lang.Proficiency * 33.3333)%;" aria-valuenow="3" aria-valuemin="1" aria-valuemax="4"></div>
                                             </div>
                                         </div>
-                                    }
-                                </div>
+                                    </div>
+                                }
                             </div>
                         </div>
+                    </div>
 
+                    @{
+                        if (Model.Info.LinkedIn != null || Model.Info.GitHub != null || Model.Info.Twitter != null || Model.Info.Facebook != null || Model.Info.Instagram != null)
+                        {
+                            <div id="socials" class="mb-5 col-12">
+                                <span class="font-weight-bold" style="color:var(--bs-headers-color-custom);">S O C I A L S</span>
+                                <br />
+                                @if (Model.Info.GitHub != null)
+                                {
+                                    <span style="color: var(--bs-text-color-custom); font-size: small;" class="font-weight-light ">
+                                        <a href="@Model.Info.GitHub" class="socials-link">@Model.Info.GitHub</a>
+                                    </span><br />
+                                }
+                                @if (Model.Info.LinkedIn != null)
+                                {
+                                    <span style="color: var(--bs-text-color-custom); font-size: small;" class="font-weight-light ">
+                                        <a href="@Model.Info.LinkedIn" class="socials-link">@Model.Info.LinkedIn</a>
+                                    </span><br />
+                                }
+                                @if (Model.Info.Facebook != null)
+                                {
+                                    <span style="color: var(--bs-text-color-custom); font-size: small;" class="font-weight-light ">
+                                        <a href="@Model.Info.Facebook" class="socials-link">@Model.Info.Facebook</a>
+                                    </span><br />
+                                }
+                                @if (Model.Info.Instagram != null)
+                                {
+                                    <span style="color: var(--bs-text-color-custom); font-size: small;" class="font-weight-light ">
+                                        <a href="@Model.Info.Instagram" class="socials-link">@Model.Info.Instagram</a>
+                                    </span><br />
+                                }
+                                @if (Model.Info.Twitter != null)
+                                {
+                                    <span style="color: var(--bs-text-color-custom); font-size: small;" class="font-weight-light ">
+                                        <a href="@Model.Info.Twitter" class="socials-link">@Model.Info.Twitter</a>
+                                    </span><br />
+                                }
+                            </div>
+                        }
+                    }
+
+                    @{
+                        if (Model.Info.Reference != null)
+                        {
+                            <div id="references" class="mb-5 col-12">
+                                <span class="font-weight-bold" style="color:var(--bs-headers-color-custom);">R E F E R E N C E S</span>
+                                <div class="row mt-1 d-flex flex-row">
+
+                                    <div class="col-1 col-lg-1 mt-3" id="line_seperator"></div>
+
+                                    <div class="col-10 col-lg-10 mt-2" style="        color: var(--bs-outline-color-custom);
+">
+                                        @Model.Info.Reference
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
                     </div>
                 </div>
 
@@ -159,7 +277,7 @@
                         <div class="row mt-2">
                             <div class="col-2 mb-3" id="line_seperator" style="left:5%"></div>
                             <div class="col-9">
-                                <p style="font-size: small; color: var(--bs-text-color-custom);;" class="font-resizable">
+                                <p style="font-size: small; color: var(--bs-text-color-custom);" class="font-resizable">
                                     @Model.Info.AboutMe
                                 </p>
                             </div>
@@ -170,7 +288,7 @@
                         <span class="font-weight-bold" style="color:var(--bs-headers-color-custom);">E X P E R I E N C E</span>
                         <br />
                         <div class="mt-4">
-                            @foreach (Experience exp in Model.Info.Experiences)
+                            @foreach (Experience exp in Model.Info.GetExperiences())
                             {
                                 <div class="row mb-2">
                                     <div class="col-2 mb-3" id="line_seperator" style="left:5%"></div>
@@ -188,9 +306,100 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+
+    @*---------------------------------------------------------LAYOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUT 2-------------------------------------------------------*@
+
+    @*<div class="col-12 p-1 layout-2 d-flex flex-row" id="div_to_print" style="border: 3px solid black">
+
+            <div class="col-4 d-flex flex-column bg-dark" style="border: 3px solid red">
+                <div id="name" class="mb-5 col-12 d-flex align-items-center flex-column mt-5">
+                    @if (Model.Info.Image != null && !Model.Info.Image.Equals(""))
+                    {
+                        <div class="d-flex justify-content-center mb-5">
+                            <img src="/images/@Model.Info.Image" asp-append-version="true" class="col-6 m-0 p-0 border-light" id="profile_img" />
+                        </div>
+                        <br />
+                    }
+                    <h4 class="font-weight-bold justify-content-start" style="color:var(--bs-headers-color-custom);">C O N T A C T</h4>
+                    <br />
+                    <span style="color: var(--bs-text-color-custom);; font-size: small;" class="font-weight-light ">@Model.Info.Email</span><br />
+                    <span style="color: var(--bs-text-color-custom);; font-size: small;" class="font-weight-light ">@Model.Info.PhoneNumber</span><br />
+                    <span style="color: var(--bs-text-color-custom);; font-size: small;" class="font-weight-light ">@Model.Info.Address</span><br />
+
+                </div>
+
+            </div>
+
+            <div class="col-8 d-flex flex-column" style="border: 3px solid green">
+
+                <div id="name" class="mb-5 col-12 mt-5">
+                    <h1 class="font-weight-bolder col-12 text-left" style="color: var(--bs-headers-color-custom-2);">@Model.Info.FirstName @Model.Info.LastName</h1>
+                    <br />
+                    <h3 class="font-italic font-weight-lighter" style="color: var(--bs-text-color-custom-2);">@Model.Info.Profession</h3>
+                </div>
+
+                <div id="experience" class="mb-5 mt-5 col-12">
+                    <span class="font-weight-bold" style="color:var(--bs-headers-color-custom-2);">E X P E R I E N C E</span>
+                    <br />
+                    <div class="mt-4 d-flex flex-column col-12">
+                        @foreach (Experience exp in Model.Info.GetExperiences())
+                        {
+                            <div class="mb-2 col-12">
+                                <div class="col-2 mb-3" id="line_seperator" style="left:5%"></div>
+                                <div class="col-9">
+                                    <span class="font-weight-bolder mb-2" style="color:var(--bs-outline-color-custom);">@exp.Name</span>
+                                    <p class="font-resizable" style="font-size: small;color: var(--bs-text-color-custom);">
+                                        @exp.Text
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>*@
+
 </div>
 
+@if (ResumeMaker.Helpers.SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == -1
+         || ResumeMaker.Helpers.SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == 0)
+{
+    <div class="col-lg-6 offset-lg-3 col-10 offset-1 col-md-8 offset-md-2 bg-custom text-light prompt-login d-flex flex-column" id="prompt_login">
+        <div class="d-flex flex-row justify-content-end w-100 mt-1 ml-1">
+            <button class="btn bg-danger text-light" onclick="hidePromptLogin()">X</button>
+        </div>
+        <p class="font-weight-bold font-responsive text-center align-self-center mt-5">
+            Log in now to save your CV so you can update it in the future <br />
+            If you leave this page your progress will be lost! <br />
+            Log in now and save your data <br />
+        </p>
+        <div class="w-75 mt-5 mb-3 align-self-center">
+            <form method="POST">
+                <input type="submit" class="btn btn-outline-light w-100" value="LOG IN" />
+            </form>
+        </div>
+        <script type="text/javascript">
+            document.getElementById("div_to_print").classList.add("opacity-50");
+            document.getElementById("styling_header").classList.add("opacity-50");
+        </script>
+    </div>
+}
+
 <script type="text/javascript">
+    function hidePromptLogin() {
+        document.getElementById("prompt_login").remove();
+        document.getElementById("div_to_print").classList.remove("opacity-50");
+        document.getElementById("styling_header").classList.remove("opacity-50");
+
+    }
     function download() {
         let divs = document.getElementsByClassName("disappear");
         for (var i = 0; i < divs.length; i++)

@@ -1,4 +1,17 @@
-﻿@media only screen and (min-width: 0px) and (max-width: 575px) {
+﻿:root {
+    --lighter-green: #46f1ad;
+    --light-green: #0fc473;
+    --dark-green: #198a68;
+    --input-background-green: #0e8556;
+    --input-selected-green: #095537;
+    --text-gray: #203141;
+    --background-gray: #2c2f38;
+    --light-purple: #8400FF;
+    --dark-purple: #CA8AFF;
+    --mid-purple: #a83ffe;
+}
+
+@media only screen and (min-width: 0px) and (max-width: 575px) {
     .label-responsive{
         font-size: 14px;
     }
@@ -16,7 +29,7 @@
 }
 
 .header-texts {
-    color: #17a2b8 !important;
+    color:  var(--dark-purple) !important;
     /*#5cb85c;*/
 }
 
@@ -37,5 +50,22 @@
 }
 
 .btn-custom {
-    background-color: #1ebba3;
+    background: linear-gradient(to right, var(--mid-purple), var(--light-purple));
+    color: white;
+}
+.btn-custom:hover{
+    color: white;
+    background: var(--dark-purple);
+}
+
+.custom-font{
+    color: #d0c9c9 !important;
+}
+
+.bg-custom{
+    background: linear-gradient(to right, var(--dark-purple), var(--light-purple)) !important;
+    color: white;
+}
+a{
+    text-decoration: none !important;
 }

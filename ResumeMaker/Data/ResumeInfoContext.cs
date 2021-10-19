@@ -19,5 +19,6 @@ namespace ResumeMaker.Data
         public DbSet<Experience> Experiences { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Skill> Skills { get; set; }
+        public DbSet<UnRegisteredResume> UnRegisteredResumes { get; set; }
     }
 }

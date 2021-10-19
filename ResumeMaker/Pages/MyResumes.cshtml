@@ -1,0 +1,176 @@
+﻿@page
+@model ResumeMaker.Pages.MyResumesModel
+@{
+}
+
+<link rel="stylesheet" href="/css/StyleSheet.css" />
+<link rel="stylesheet" href="/css/Header.css" />
+
+
+<header class="d-flex justify-content-between col-12" style="font-family: 'Courier New' !important;">
+
+    <label class="ml-2 align-self-center">
+        <a class="header-text-icon link logo text-light" href="/">DESIGNER</a>
+    </label>
+
+    <img src="/images/nav-icon.png" class="img-thumbnail menu-button align-self-center" onclick="showNav()" />
+
+    <nav>
+        <img src="/images/x-icon.png" class="img-thumbnail exit-button mt-2" style="width:12%; height:5%;" onclick="hideNav()" />
+        <ul class="primary-nav" id="target-nav">
+        </ul>
+
+        @{
+            if (ResumeMaker.Helpers.SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == -1
+            || ResumeMaker.Helpers.SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == 0)
+            {
+                <ul class="secondary-nav mt-4">
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="Credentials" class="link">Log in</a>
+                    </li>
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="Credentials" class="link sign-up">Sign Up</a>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <script type="text/javascript">
+                    let nav = document.getElementById("target-nav");
+                    let a = document.createElement("a");
+                    let li = document.createElement("li");
+                    a.setAttribute("href", "/myresumes");
+                    a.classList.add("link");
+                    a.innerHTML = "My Resumes";
+                    li.appendChild(a);
+                    nav.appendChild(li);
+                </script>
+
+                <ul class="secondary-nav">
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="LogOut" class="link">Log Out</a>
+                    </li>
+                </ul>
+            }
+        }
+    </nav>
+</header>
+
+
+
+@{
+    if (Model.Resumes != null && Model.Resumes.Count > 0)
+    {
+        <div class="main-container col-xl-8 offset-xl-2 col-10 offset-1 bg-custom d-flex flex-column justify-content-center" style="font-family:'Courier New';">
+            <p class="col-12 text-center text-light font-weight-bold responsive-font mt-2">
+                Here is the list of all the Resume's you created
+            </p>
+            <div class="col-12 resumes-container">
+                <div class="col-12 d-flex flex-column justify-content-between text-light m-2">
+                    @foreach (Models.ResumeInfo resume in Model.Resumes)
+                    {
+                        <div class="d-flex flex-xl-row mt-5 mt-lg-3 mb-3 flex-column ">
+                            <label class="col-xl-6 col-12 d-flex flex-row justify-content-xl-start justify-content-center align-self-center text-center">
+                                @resume.FirstName @resume.LastName's Resume
+                            </label>
+                            <div class="col-xl-6 col-12 d-flex flex-row justify-content-xl-end justify-content-around">
+                                <form method="POST">
+                                    <button class="btn btn-outline-light m-1" asp-page-handler="Details" asp-route-resumeID="@resume.ResumeInfoID">Details</button>
+                                    <button class="btn btn-outline-light m-1" asp-page-handler="Edit" asp-route-resumeID="@resume.ResumeInfoID">Edit</button>
+                                    <button class="btn btn-outline-light m-1" asp-page-handler="Delete" asp-route-resumeID="@resume.ResumeInfoID">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+
+            <hr />
+
+            <div class="col-12 d-flex flex-column justify-content-center mt-5">
+                <p class="text-center">
+                    <strong style="color: white;">cutting-edge</strong> resume builder that works as smart as you do.
+                </p>
+                <div class="row mt-4 d-flex flex-md-row flex-column justify-content-center text-center">
+                    <div class="col col-lg-3 col-md-6 col-12 mt-5 d-flex justify-content-center align-items-center flex-column">
+                        <div>
+                            <img src="https://assets.stylingcv.com/wp-content/uploads/2020/12/data-safe.svg">
+                            <h5>Simple &amp; Effortless</h5>
+                        </div>
+                        <p>Create your resume in a just a few clicks with the help of our smart step-by-step wizard.</p>
+                    </div>
+                    <div class="col col-lg-3 col-md-6 col-12 mt-5 d-flex justify-content-center align-items-center flex-column">
+                        <div>
+                            <img src="https://assets.stylingcv.com/wp-content/uploads/2020/12/flexable-editor.svg">
+                            <h5>HR-approved</h5>
+                        </div>
+                        <p>Let our free resume templates do the work for you and follow pro tips from top experts.</p>
+                    </div>
+                    <div class="col col-lg-3 col-md-6 col-12 mt-5 d-flex justify-content-center align-items-center flex-column">
+                        <div>
+                            <img src="https://assets.stylingcv.com/wp-content/uploads/2020/12/pdf-export.svg">
+                            <h5>Customizable</h5>
+                        </div>
+                        <p>Select the right resume template for your industry &amp; job type. Easily tailor it with our flexible text editor.</p>
+                    </div>
+                    <div class="col col-lg-3 col-md-6 col-12 mt-5 d-flex justify-content-center align-items-center flex-column">
+                        <div>
+                            <img src="https://assets.stylingcv.com/wp-content/uploads/2020/12/resume-tips.svg">
+                            <h5>Completely Free!</h5>
+                        </div>
+                        <p>Get everything you need to build an attractive resume for FREE with our Basic account.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="main-container col-lg-8 offset-lg-2 col-10 offset-1 bg-custom d-flex flex-column justify-content-center">
+            <h1 class="text-center mt-2">WOW, Such Empty !</h1>
+            <p class="text-center text-light">
+                You currently don't have any resume click on Create a Resume to create and customize your own CV
+            </p>
+            <form method="post" class="m-2 align-self-center">
+                <button class="btn btn-outline-light" asp-page="/resumeform">Create a Resume</button>
+            </form>
+
+            <div class="col-12 d-flex flex-column justify-content-center mt-5">
+                <p class="text-center">
+                    <strong style="color: white;">cutting-edge</strong> resume builder that works as smart as you do.
+                </p>
+                <div class="row mt-4 d-flex flex-md-row flex-column justify-content-center text-center">
+                    <div class="col col-lg-3 col-md-6 col-12 mt-5 d-flex justify-content-center align-items-center flex-column">
+                        <div>
+                            <img src="https://assets.stylingcv.com/wp-content/uploads/2020/12/data-safe.svg">
+                            <h5>Simple &amp; Effortless</h5>
+                        </div>
+                        <p>Create your resume in a just a few clicks with the help of our smart step-by-step wizard.</p>
+                    </div>
+                    <div class="col col-lg-3 col-md-6 col-12 mt-5 d-flex justify-content-center align-items-center flex-column">
+                        <div>
+                            <img src="https://assets.stylingcv.com/wp-content/uploads/2020/12/flexable-editor.svg">
+                            <h5>HR-approved</h5>
+                        </div>
+                        <p>Let our free resume templates do the work for you and follow pro tips from top experts.</p>
+                    </div>
+                    <div class="col col-lg-3 col-md-6 col-12 mt-5 d-flex justify-content-center align-items-center flex-column">
+                        <div>
+                            <img src="https://assets.stylingcv.com/wp-content/uploads/2020/12/pdf-export.svg">
+                            <h5>Customizable</h5>
+                        </div>
+                        <p>Select the right resume template for your industry &amp; job type. Easily tailor it with our flexible text editor.</p>
+                    </div>
+                    <div class="col col-lg-3 col-md-6 col-12 mt-5 d-flex justify-content-center align-items-center flex-column">
+                        <div>
+                            <img src="https://assets.stylingcv.com/wp-content/uploads/2020/12/resume-tips.svg">
+                            <h5>Completely Free!</h5>
+                        </div>
+                        <p>Get everything you need to build an attractive resume for FREE with our Basic account.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

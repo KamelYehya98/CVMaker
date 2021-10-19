@@ -11,6 +11,59 @@
 <script type="text/javascript" src="~/js/ResumeForm.js"></script>
 
 <link rel="stylesheet" href="/css/ResumeForm.css">
+<link rel="stylesheet" href="~/css/Header.css" />
+
+
+<header class="d-flex justify-content-between col-12" style="font-family: 'Courier New' !important;">
+
+    <label class="ml-2 align-self-center">
+        <a class="header-text-icon link logo text-light" href="/">DESIGNER</a>
+    </label>
+
+    <img src="/images/nav-icon.png" class="img-thumbnail menu-button align-self-center" onclick="showNav()" />
+
+    <nav>
+        <img src="/images/x-icon.png" class="img-thumbnail exit-button mt-2" style="width:12%; height:5%;" onclick="hideNav()" />
+        <ul class="primary-nav" id="target-nav">
+        </ul>
+
+        @{
+            if (ResumeMaker.Helpers.SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == -1
+            || ResumeMaker.Helpers.SessionHelper.GetObjectFromJson<int>(HttpContext.Session, "ID") == 0)
+            {
+                <ul class="secondary-nav mt-4">
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="Credentials" class="link">Log in</a>
+                    </li>
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="Credentials" class="link sign-up">Sign Up</a>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <script type="text/javascript">
+                    let nav = document.getElementById("target-nav");
+                    let a = document.createElement("a");
+                    let li = document.createElement("li");
+                    a.setAttribute("href", "/myresumes");
+                    a.classList.add("link");
+                    a.innerHTML = "My Resumes";
+                    li.appendChild(a);
+                    nav.appendChild(li);
+                </script>
+
+                <ul class="secondary-nav">
+                    <li>
+                        <a asp-page="/auth" asp-page-handler="LogOut" class="link">Log Out</a>
+                    </li>
+                </ul>
+            }
+        }
+    </nav>
+</header>
+
+
 
 <div class="container">
     <div class="d-flex justify-content-center">
@@ -193,7 +246,7 @@
             document.getElementsByName("LanguageName")[0].setAttribute("value", '@Model.Info.GetLanguages()[0].Name');
             document.getElementsByName("LanguageValue0")[@Model.Info.GetLanguages()[0].Proficiency - 1].setAttribute("checked", true);
         </script>
-     }
+    }
 
     @for (int i = 1; i < Model.Info.GetLanguages().Count; i++)
     {
@@ -229,6 +282,7 @@
             addSkills('@Model.Info.GetSkills()[i].Name', @Model.Info.GetSkills()[i].Proficiency);
         </script>
     }
+
 }
 
 

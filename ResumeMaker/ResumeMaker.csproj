@@ -7,19 +7,16 @@
 
   <ItemGroup>
     <Compile Remove="NewFolder\**" />
-    <Compile Remove="wwwroot\images\**" />
     <Compile Remove="wwwroot\NewFolder1\**" />
     <Compile Remove="wwwroot\NewFolder2\**" />
     <Content Remove="NewFolder\**" />
-    <Content Remove="wwwroot\images\**" />
     <Content Remove="wwwroot\NewFolder1\**" />
     <Content Remove="wwwroot\NewFolder2\**" />
     <EmbeddedResource Remove="NewFolder\**" />
-    <EmbeddedResource Remove="wwwroot\images\**" />
+    <!--<EmbeddedResource Remove="wwwroot\images\**" />-->
     <EmbeddedResource Remove="wwwroot\NewFolder1\**" />
     <EmbeddedResource Remove="wwwroot\NewFolder2\**" />
     <None Remove="NewFolder\**" />
-    <None Remove="wwwroot\images\**" />
     <None Remove="wwwroot\NewFolder1\**" />
     <None Remove="wwwroot\NewFolder2\**" />
   </ItemGroup>
@@ -28,12 +25,14 @@
     <Compile Remove="Pages\Index1.cshtml.cs" />
     <Compile Remove="Pages\Print.cshtml.cs" />
     <Compile Remove="Pages\Resumes\Create.cshtml.cs" />
+    <Compile Remove="Pages\SignUp.cshtml.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="Pages\Index1.cshtml" />
     <Content Remove="Pages\Print.cshtml" />
     <Content Remove="Pages\Resumes\Create.cshtml" />
+    <Content Remove="Pages\SignUp.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

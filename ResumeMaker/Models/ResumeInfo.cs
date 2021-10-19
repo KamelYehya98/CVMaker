@@ -39,7 +39,24 @@ namespace ResumeMaker.Models
         [Required(ErrorMessage = "Address is Required")]
         public string Address { get; set; }
 
+        
         public string Image { get; set; }
+        [RegularExpression(@"http(s) ?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?", ErrorMessage = "Invalid URL Format")]
+        public string GitHub { get; set; }
+
+        [RegularExpression(@"http(s) ?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?", ErrorMessage = "Invalid URL Format")]
+        public string LinkedIn { get; set; }
+
+        [RegularExpression(@"http(s) ?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?", ErrorMessage = "Invalid URL Format")]
+        public string Facebook { get; set; }
+
+        [RegularExpression(@"http(s) ?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?", ErrorMessage = "Invalid URL Format")]
+        public string Twitter { get; set; }
+
+        [RegularExpression(@"http(s) ?://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?", ErrorMessage = "Invalid URL Format")]
+        public string Instagram { get; set; }
+
+        public string Reference { get; set; }
 
         public List<Skill> Skills { get; set; }
         public List<Language> Languages { get; set; }
