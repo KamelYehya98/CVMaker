@@ -1,6 +1,6 @@
-# Resume-Maker
+# Resume-Designer
 
-Resume Maker is web application made with ASP.NET Core ,designed to create and customize your own CV.
+Resume Designer is web application made with ASP.NET Core ,designed to create and customize your own CV.
 You can change the theme, font, font-size, adjust the your profile picture as you please, 
 you can save your CV info if you create an account, and change them accordingly later on.
 
